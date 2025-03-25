@@ -13,7 +13,7 @@ export class Jira {
 	}
 
 	/** Extract JIRA issue keys from a string. */
-	static getJIRAIssueKeys = (input: string): string[] => input.match(JIRA_REGEX_MATCHER) ?? [];
+	static getJIRAIssueKeys = (input: string, ignore: string): string[] => input.replace(ignore, '').match(JIRA_REGEX_MATCHER) ?? [];
 
 	private getJIRAClient = (baseURL: string, username: string, token: string) => {
 		const credentials = `${username}:${token}`;

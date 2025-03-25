@@ -20,6 +20,7 @@ const run = async () => {
 			required: false,
 		});
 		const failOnError: boolean = core.getInput('fail-on-error', { required: false }) !== 'false';
+		const ignoreString: string = core.getInput('ignore-string', { required: false }) !== 'false';
 		const forceUpdate: boolean = core.getInput('force-update', { required: false }) === 'true';
 		const updateBody: boolean = core.getInput('update-body', { required: false }) === 'true';
 		const includeTitle: boolean = core.getInput('include-title', { required: false }) === 'true';
@@ -89,7 +90,7 @@ const run = async () => {
 		console.log('Base branch -> ', baseBranch);
 		console.log('Head branch -> ', headBranch);
 
-		const issueKeys = Jira.getJIRAIssueKeys(headBranch);
+		const issueKeys = Jira.getJIRAIssueKeys(headBranch, ignoreString);
 		if (!issueKeys.length) {
 			console.log(`Could not find a JIRA issue key in your branch name. Skipping.`);
 			return;
